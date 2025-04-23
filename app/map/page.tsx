@@ -34,9 +34,9 @@ export default function MapPage() {
   useEffect(() => {
     const fetchReports = async () => {
       try {
-        const res = await fetch("/api/report/recent");
+        const res = await fetch("/api/report/recent"); // ✅ Route kontrol
         const data = await res.json();
-        console.log("📡 Received Reports:", data.reports); // Log kontrolü
+        console.log("📡 Received Reports:", data.reports);
         setRecentReports(data.reports || []);
       } catch (err) {
         console.error("❌ Failed to fetch reports:", err);
@@ -47,7 +47,7 @@ export default function MapPage() {
   }, []);
 
   return (
-    <main className="min-h-screen px-4 py-10 flex flex-col items-center gap-12 ">
+    <main className="min-h-screen px-4 py-10 flex flex-col items-center gap-12 bg-gray-50">
       <h1 className="text-3xl font-bold text-orange-600 text-center">
         🗺️ FireX Maps
       </h1>
@@ -57,7 +57,7 @@ export default function MapPage() {
         <h2 className="text-xl font-semibold mb-3 text-black">🛰️ Device Locations</h2>
         <div className="rounded-xl overflow-hidden">
           <MapContainer
-            center={[41.015137, 28.979530]} // Istanbul
+            center={[41.015137, 28.979530]} // İstanbul
             zoom={6}
             style={{ height: '400px', width: '100%' }}
             scrollWheelZoom={true}
@@ -78,6 +78,7 @@ export default function MapPage() {
         <h2 className="text-xl font-semibold mb-3 text-black">🔥 User Reports (Last 5 Hours)</h2>
         <div className="rounded-xl overflow-hidden">
           <MapContainer
+            center={[39.0, 35.0]} // Türkiye merkezi (örnek)
             zoom={6}
             style={{ height: '400px', width: '100%' }}
             scrollWheelZoom={true}
