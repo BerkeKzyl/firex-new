@@ -1,41 +1,41 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# ❌ Node.js bağımlılıkları
+node_modules/
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
+# ❌ Next.js geçici build klasörü
+.next/
 
-# testing
-/coverage
+# ❌ Build çıktısı
+out/
 
-# next.js
-/.next/
-/out/
+# ❌ Ortam değişkenleri (şifreler, API keyler burada olur)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# production
-/build
-
-# misc
-.DS_Store
-*.pem
-
-# debug
+# ❌ log dosyaları
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# ❌ macOS için özel dosyalar
+.DS_Store
 
-# vercel
-.vercel
+# ❌ VS Code ayarları (projeye özel değilse gerek yok)
+.vscode/
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# ❌ Git stash cache'i
+*.orig
+
+# ❌ lock dosyası (proje sadece yarn veya npm kullanıyorsa diğerini dışla)
+package-lock.json
+# veya
+yarn.lock
+
+# ❌ coverage raporları (jest vs. varsa)
+coverage/
+
+# ❌ Türkçe karakterli klasör/dosya isimleri varsa önlem olarak (isteğe bağlı)
+Thumbs.db
+ehthumbs.db
