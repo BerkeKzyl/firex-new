@@ -7,6 +7,7 @@ export default function ReportPage() {
   const [error, setError] = useState<string | null>(null);
   const [imageBase64, setImageBase64] = useState<string | null>(null);
   const [comment, setComment] = useState('');
+  const [locationAccuracy, setLocationAccuracy] = useState<number | null>(null);
 
   const handleLocation = () => {
     if (!navigator.geolocation) {
@@ -14,17 +15,62 @@ export default function ReportPage() {
       return;
     }
 
+    // Önce eski konumu temizleyelim
+    setLocation(null);
+    setError(null);
+    setLocationAccuracy(null);
+
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 0
+    };
+
+    console.log('🔄 Requesting location with options:', options);
+
     navigator.geolocation.getCurrentPosition(
       (pos) => {
-        setLocation({
+        console.log('📍 Raw position data:', pos);
+        console.log('📍 Coordinates:', pos.coords);
+        console.log('📍 Accuracy:', pos.coords.accuracy, 'meters');
+        
+        const newLocation = {
           lat: pos.coords.latitude,
           lng: pos.coords.longitude,
-        });
+        };
+
+        console.log('📍 New location:', newLocation);
+        
+        // Eğer önceki konum varsa ve yeni konumla aynıysa uyarı verelim
+        if (location && 
+            location.lat === newLocation.lat && 
+            location.lng === newLocation.lng) {
+          console.warn('⚠️ Warning: New location is identical to previous location');
+        }
+
+        setLocation(newLocation);
+        setLocationAccuracy(pos.coords.accuracy);
         setError(null);
       },
-      () => {
-        setError('Location access denied.');
-      }
+      (err) => {
+        console.error('❌ Geolocation error:', err);
+        let errorMessage = 'Location access denied or error occurred.';
+        
+        switch(err.code) {
+          case err.PERMISSION_DENIED:
+            errorMessage = 'Location permission denied. Please allow location access.';
+            break;
+          case err.POSITION_UNAVAILABLE:
+            errorMessage = 'Location information is unavailable. Please check your GPS.';
+            break;
+          case err.TIMEOUT:
+            errorMessage = 'Location request timed out. Please try again.';
+            break;
+        }
+        
+        setError(errorMessage);
+      },
+      options
     );
   };
 
@@ -78,27 +124,44 @@ export default function ReportPage() {
   };
 
   return (
-    <main className="min-h-screen px-6 py-12">
+    <main className="min-h-screen px-6 py-12 bg-gradient-to-br from-orange-50 to-orange-100">
       <h1 className="text-3xl font-bold mb-6 text-orange-600">🔥 Fire Report</h1>
 
-      <div className="bg-orange-100 p-6 rounded-xl shadow-md max-w-xl mx-auto flex flex-col gap-6">
+      <div className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-md max-w-xl mx-auto flex flex-col gap-6">
         {/* LOCATION */}
         <div>
           <h2 className="text-xl font-semibold mb-2 text-black">📍 Location</h2>
           {location ? (
-            <p className="text-green-700">
-              Latitude: {location.lat.toFixed(5)} — Longitude: {location.lng.toFixed(5)}
-            </p>
+            <div className="text-green-700">
+              <p>
+                Latitude: {location.lat.toFixed(6)} — Longitude: {location.lng.toFixed(6)}
+              </p>
+              {locationAccuracy && (
+                <p className="text-sm text-gray-600">
+                  Accuracy: ±{locationAccuracy.toFixed(1)} meters
+                </p>
+              )}
+            </div>
           ) : (
             <p className="text-gray-700">Location not retrieved yet.</p>
           )}
           {error && <p className="text-red-600 mt-1">{error}</p>}
-          <button
-            onClick={handleLocation}
-            className="mt-3 px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition"
-          >
-            Get Location
-          </button>
+          <div className="flex gap-2 mt-3">
+            <button
+              onClick={handleLocation}
+              className="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition"
+            >
+              Get Location
+            </button>
+            {location && (
+              <button
+                onClick={handleLocation}
+                className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition"
+              >
+                Refresh Location
+              </button>
+            )}
+          </div>
         </div>
 
         {/* COMMENT */}

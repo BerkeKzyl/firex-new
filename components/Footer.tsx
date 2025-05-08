@@ -3,22 +3,19 @@ import { FOOTER_ITEMS, SocialMediaData } from "@/constants";
 
 const Footer = () => {
   return (
-    // Footer dış zemin → arka planla birebir aynı gradient veriyoruz!
-    <div className="px-6 md:px-16 mb-8  bg-transparent">
-      <footer className="relative py-8 px-6 md:px-8 bg-gray-800 text-white rounded-[3rem] overflow-hidden pb-20 shadow-xl border-t border-orange-100">
-
-        {/* YILDIZ EFEKTLERİ - geri getirildi */}
+    <div className="px-6 md:px-16 mb-8 bg-gradient-to-br from-orange-50 to-orange-100">
+      <footer className="relative py-8 px-6 md:px-8 bg-gray-800/95 backdrop-blur-sm text-white rounded-[3rem] overflow-hidden pb-20 shadow-xl border-t border-orange-100">
+        {/* YILDIZ EFEKTLERİ */}
         <div
           className="absolute inset-0 bg-center bg-cover opacity-10 z-0"
           style={{
-            backgroundImage: "url('/images/footer-bg.png')", // Yıldızlı efektli görselin
+            backgroundImage: "url('/images/footer-bg.png')",
           }}
         />
 
         {/* Asıl İçerik */}
         <div className="relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
-            
             {/* Logo & Açıklama */}
             <div className="lg:col-span-2">
               <h1 className="text-2xl md:text-3xl font-bold text-red-500">FIREX</h1>

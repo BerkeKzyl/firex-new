@@ -34,9 +34,11 @@ export default function MapPage() {
   useEffect(() => {
     const fetchReports = async () => {
       try {
-        const res = await fetch("/api/report/recent"); // ✅ Route kontrol
+        const res = await fetch("/api/report/recent");
         const data = await res.json();
-        console.log("📡 Received Reports:", data.reports);
+        console.log("📡 Raw API Response:", data);
+        console.log("📡 Reports Data:", data.reports);
+        console.log("📡 First Report Location:", data.reports[0]?.latitude, data.reports[0]?.longitude);
         setRecentReports(data.reports || []);
       } catch (err) {
         console.error("❌ Failed to fetch reports:", err);
@@ -46,14 +48,17 @@ export default function MapPage() {
     fetchReports();
   }, []);
 
+  // Debug için raporları render ederken de kontrol edelim
+  console.log("🎯 Rendering Reports:", recentReports);
+
   return (
-    <main className="min-h-screen px-4 py-10 flex flex-col items-center gap-12 bg-gray-50">
+    <main className="min-h-screen px-4 py-10 flex flex-col items-center gap-12 bg-gradient-to-br from-orange-50 to-orange-100">
       <h1 className="text-3xl font-bold text-orange-600 text-center">
         🗺️ FireX Maps
       </h1>
 
       {/* MAP 1 - Device Locations */}
-      <section className="w-full max-w-4xl bg-white rounded-2xl shadow-lg p-4">
+      <section className="w-full max-w-4xl bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-4">
         <h2 className="text-xl font-semibold mb-3 text-black">🛰️ Device Locations</h2>
         <div className="rounded-xl overflow-hidden">
           <MapContainer
@@ -74,11 +79,11 @@ export default function MapPage() {
       </section>
 
       {/* MAP 2 - User Reports */}
-      <section className="w-full max-w-4xl bg-white rounded-2xl shadow-lg p-4">
+      <section className="w-full max-w-4xl bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-4">
         <h2 className="text-xl font-semibold mb-3 text-black">🔥 User Reports (Last 5 Hours)</h2>
         <div className="rounded-xl overflow-hidden">
           <MapContainer
-            center={[39.0, 35.0]} // Türkiye merkezi (örnek)
+            center={[39.0, 35.0]} // Türkiye merkezi
             zoom={6}
             style={{ height: '400px', width: '100%' }}
             scrollWheelZoom={true}
@@ -88,20 +93,24 @@ export default function MapPage() {
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
 
-            {recentReports.map((report) => (
-              <Marker
-                key={report._id}
-                position={[report.latitude, report.longitude]}
-                icon={reportIcon}
-              >
-                <Popup className="text-sm">
-                  <p><strong>🕒 Date:</strong><br /> {new Date(report.dateTime).toLocaleString()}</p>
-                  {report.comment && (
-                    <p className="mt-2"><strong>📝 Comment:</strong><br /> {report.comment}</p>
-                  )}
-                </Popup>
-              </Marker>
-            ))}
+            {recentReports.map((report) => {
+              console.log("📍 Rendering Marker for Report:", report._id, "at position:", [report.latitude, report.longitude]);
+              return (
+                <Marker
+                  key={report._id}
+                  position={[report.latitude, report.longitude]}
+                  icon={reportIcon}
+                >
+                  <Popup className="text-sm">
+                    <p><strong>🕒 Date:</strong><br /> {new Date(report.dateTime).toLocaleString()}</p>
+                    {report.comment && (
+                      <p className="mt-2"><strong>📝 Comment:</strong><br /> {report.comment}</p>
+                    )}
+                    <p className="mt-2"><strong>📍 Location:</strong><br /> Lat: {report.latitude}, Lng: {report.longitude}</p>
+                  </Popup>
+                </Marker>
+              );
+            })}
           </MapContainer>
         </div>
       </section>

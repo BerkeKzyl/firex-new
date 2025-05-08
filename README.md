@@ -1,3 +1,5 @@
+# FireX - Wildfire Detection and Reporting System
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
@@ -16,9 +18,24 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## MongoDB Connection
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The project uses a public MongoDB Atlas database. Connection details:
+
+```javascript
+MONGODB_URI = "mongodb+srv://firex:firex123@firexcluster.0qgqg.mongodb.net/firex?retryWrites=true&w=majority"
+```
+
+You can use these credentials to connect to the database directly or through your application.
+
+## Features
+
+- Real-time fire detection
+- User reporting system
+- Location tracking
+- Image upload
+- Interactive map
+- Mobile app support
 
 ## Learn More
 
