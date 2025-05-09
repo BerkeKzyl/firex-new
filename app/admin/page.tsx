@@ -1,9 +1,24 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function AdminPanel() {
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [recentReportsCount, setRecentReportsCount] = useState(0);
+
+  useEffect(() => {
+    const fetchRecentReports = async () => {
+      try {
+        const response = await fetch('/api/report/recent');
+        const data = await response.json();
+        setRecentReportsCount(data.reports.length);
+      } catch (error) {
+        console.error('Error fetching recent reports:', error);
+      }
+    };
+
+    fetchRecentReports();
+  }, []);
 
   // Örnek sensör verileri
   const sensorData = [
@@ -91,9 +106,7 @@ export default function AdminPanel() {
                   </div>
                   <div className="bg-white/50 p-6 rounded-lg shadow">
                     <h3 className="text-lg font-medium text-gray-900">Aktif Raporlar</h3>
-                    <p className="text-3xl font-bold text-red-500 mt-2">
-                      {reports.filter(r => r.status === 'İnceleniyor').length}
-                    </p>
+                    <p className="text-3xl font-bold text-red-500 mt-2">{recentReportsCount}</p>
                   </div>
                   <div className="bg-white/50 p-6 rounded-lg shadow">
                     <h3 className="text-lg font-medium text-gray-900">Çözülen Raporlar</h3>
