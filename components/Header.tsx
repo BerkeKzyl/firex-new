@@ -3,9 +3,16 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const router = useRouter();
+
+  const handleLogin = () => {
+    router.push('/login');
+  };
 
   return (
     <div className="px-6 md:px-16 mt-8 mb-8">
@@ -25,11 +32,23 @@ export default function Header() {
           </Link>
 
           {/* Desktop Menu */}
-          <nav className="hidden md:flex gap-10 font-bold text-white tracking-widest text-sm sm:text-base">
+          <nav className="hidden md:flex items-center gap-10 font-bold text-white tracking-widest text-sm sm:text-base">
             <Link href="/" className="hover:text-red-500 transition">Welcome</Link>
             <Link href="/Info" className="hover:text-red-500 transition">Infos</Link>
             <Link href="/map" className="hover:text-red-500 transition">Map</Link>
             <Link href="/about" className="hover:text-red-500 transition">About Us</Link>
+            {isLoggedIn ? (
+              <Link href="/admin" className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg transition">
+                Admin Panel
+              </Link>
+            ) : (
+              <button
+                onClick={handleLogin}
+                className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg transition"
+              >
+                Login
+              </button>
+            )}
           </nav>
 
           {/* Hamburger */}
@@ -56,6 +75,21 @@ export default function Header() {
             <Link href="/Info" onClick={() => setIsOpen(false)}>Infos</Link>
             <Link href="/map" onClick={() => setIsOpen(false)}>Map</Link>
             <Link href="/about" onClick={() => setIsOpen(false)}>About Us</Link>
+            {isLoggedIn ? (
+              <Link href="/admin" onClick={() => setIsOpen(false)} className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg transition text-center">
+                Admin Panel
+              </Link>
+            ) : (
+              <button
+                onClick={() => {
+                  handleLogin();
+                  setIsOpen(false);
+                }}
+                className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg transition text-center"
+              >
+                Login
+              </button>
+            )}
           </div>
         )}
       </header>

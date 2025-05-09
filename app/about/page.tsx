@@ -8,64 +8,193 @@ export const runtime = "edge";
 
 function AboutPage() {
   return (
-    <div className="flex flex-col gap-10 p-5">
-      <div className="flex items-center justify-between rounded-lg p-10 bg-[#1a1a1a] shadow-lg">
-        <Image src="/images/whoami.png" alt="Mission" width={300} height={200} className="rounded-lg w-full max-w-[250px] h-auto" />
-        <div className="flex-1 px-5">
-          <h2 className="text-3xl mb-5 font-crete text-white">WHO AM I?</h2>
-          <p className="text-lg leading-relaxed text-gray-300">
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '40px',
+      padding: '20px',
+    }}>
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        borderRadius: '10px',
+        padding: '40px',
+        backgroundColor: '#1a1a1a',
+        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+      }}>
+        <Image src="/images/whoami.png" alt="Mission" width={300} height={200} style={{
+          borderRadius: '10px',
+          width: '100%',
+          maxWidth: '250px',
+          height: 'auto',
+        }} />
+        <div style={{
+          flex: 1,
+          padding: '0 20px',
+        }}>
+          <h2 style={{
+            fontSize: '32px',
+            marginBottom: '20px',
+            fontFamily: 'Crete Round, serif',
+            color: 'white',
+          }}>WHO AM I?</h2>
+          <p style={{
+            fontSize: '18px',
+            lineHeight: 1.6,
+            color: '#d1d1d1',
+          }}>
             We are a dedicated team of fire safety professionals committed to protecting lives and property through innovative solutions and cutting-edge technology. Our journey began with a simple mission: to make fire safety accessible and effective for everyone.
           </p>
         </div>
       </div>
 
-      <div className="flex items-center justify-between rounded-lg p-10 bg-[#1a1a1a] shadow-lg">
-        <div className="flex-1 px-5">
-          <h2 className="text-3xl mb-5 font-crete text-white">Experience</h2>
-          <p className="text-lg leading-relaxed text-gray-300">
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        borderRadius: '10px',
+        padding: '40px',
+        backgroundColor: '#1a1a1a',
+        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+      }}>
+        <div style={{
+          flex: 1,
+          padding: '0 20px',
+        }}>
+          <h2 style={{
+            fontSize: '32px',
+            marginBottom: '20px',
+            fontFamily: 'Crete Round, serif',
+            color: 'white',
+          }}>Experience</h2>
+          <p style={{
+            fontSize: '18px',
+            lineHeight: 1.6,
+            color: '#d1d1d1',
+          }}>
             With years of experience in fire safety and emergency management, we have developed comprehensive solutions that have been implemented across numerous facilities. Our team combines technical expertise with practical knowledge to deliver the most effective fire safety systems.
           </p>
         </div>
-        <Image src="/images/EXPERIENCE.png" alt="Experience" width={280} height={330} className="rounded-lg w-full max-w-[250px] h-auto" />
+        <Image src="/images/EXPERIENCE.png" alt="Experience" width={280} height={330} style={{
+          borderRadius: '10px',
+          width: '100%',
+          maxWidth: '250px',
+          height: 'auto',
+        }} />
       </div>
 
-      <div className="flex items-center justify-between rounded-lg p-10 bg-[#1a1a1a] shadow-lg">
-        <Image src="/images/EDCC.png" alt="Education" width={280} height={330} className="rounded-lg w-full max-w-[250px] h-auto" />
-        <div className="flex-1 px-5">
-          <h2 className="text-3xl mb-5 font-crete text-white">Education</h2>
-          <p className="text-lg leading-relaxed text-gray-300">
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        borderRadius: '10px',
+        padding: '40px',
+        backgroundColor: '#1a1a1a',
+        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+      }}>
+        <Image src="/images/EDCC.png" alt="Education" width={280} height={330} style={{
+          borderRadius: '10px',
+          width: '100%',
+          maxWidth: '250px',
+          height: 'auto',
+        }} />
+        <div style={{
+          flex: 1,
+          padding: '0 20px',
+        }}>
+          <h2 style={{
+            fontSize: '32px',
+            marginBottom: '20px',
+            fontFamily: 'Crete Round, serif',
+            color: 'white',
+          }}>Education</h2>
+          <p style={{
+            fontSize: '18px',
+            lineHeight: 1.6,
+            color: '#d1d1d1',
+          }}>
             Our team consists of certified professionals with backgrounds in fire safety engineering, emergency management, and technology development. We continuously invest in training and education to stay at the forefront of fire safety innovation.
           </p>
         </div>
       </div>
 
-      <div className="flex items-center justify-between rounded-lg p-10 bg-[#1a1a1a] shadow-lg">
-        <div className="flex-1 px-5">
-          <h2 className="text-3xl mb-5 font-crete text-white">Certifications</h2>
-          <div className="space-y-2">
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        borderRadius: '10px',
+        padding: '40px',
+        backgroundColor: '#1a1a1a',
+        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+      }}>
+        <div style={{
+          flex: 1,
+          padding: '0 20px',
+        }}>
+          <h2 style={{
+            fontSize: '32px',
+            marginBottom: '20px',
+            fontFamily: 'Crete Round, serif',
+            color: 'white',
+          }}>Certifications</h2>
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px',
+          }}>
             <p>
-              <Link href="#" className="text-lg text-gray-300 hover:text-[#ee9105] transition-colors duration-300">
+              <Link href="#" style={{
+                fontSize: '18px',
+                color: '#d1d1d1',
+                textDecoration: 'none',
+                transition: 'color 0.3s ease',
+              }} onMouseOver={(e) => e.currentTarget.style.color = '#ee9105'} 
+                 onMouseOut={(e) => e.currentTarget.style.color = '#d1d1d1'}>
                 NFPA Certified Fire Safety Professional
               </Link>
             </p>
             <p>
-              <Link href="#" className="text-lg text-gray-300 hover:text-[#ee9105] transition-colors duration-300">
+              <Link href="#" style={{
+                fontSize: '18px',
+                color: '#d1d1d1',
+                textDecoration: 'none',
+                transition: 'color 0.3s ease',
+              }} onMouseOver={(e) => e.currentTarget.style.color = '#ee9105'} 
+                 onMouseOut={(e) => e.currentTarget.style.color = '#d1d1d1'}>
                 ISO 9001:2015 Quality Management
               </Link>
             </p>
             <p>
-              <Link href="#" className="text-lg text-gray-300 hover:text-[#ee9105] transition-colors duration-300">
+              <Link href="#" style={{
+                fontSize: '18px',
+                color: '#d1d1d1',
+                textDecoration: 'none',
+                transition: 'color 0.3s ease',
+              }} onMouseOver={(e) => e.currentTarget.style.color = '#ee9105'} 
+                 onMouseOut={(e) => e.currentTarget.style.color = '#d1d1d1'}>
                 Emergency Response Team Certification
               </Link>
             </p>
             <p>
-              <Link href="#" className="text-lg text-gray-300 hover:text-[#ee9105] transition-colors duration-300">
+              <Link href="#" style={{
+                fontSize: '18px',
+                color: '#d1d1d1',
+                textDecoration: 'none',
+                transition: 'color 0.3s ease',
+              }} onMouseOver={(e) => e.currentTarget.style.color = '#ee9105'} 
+                 onMouseOut={(e) => e.currentTarget.style.color = '#d1d1d1'}>
                 Fire Safety Technology Specialist
               </Link>
             </p>
           </div>
         </div>
-        <Image src="/images/certificatess.png" alt="Certificates" width={280} height={330} className="rounded-lg w-full max-w-[250px] h-auto" />
+        <Image src="/images/certificatess.png" alt="Certificates" width={280} height={330} style={{
+          borderRadius: '10px',
+          width: '100%',
+          maxWidth: '250px',
+          height: 'auto',
+        }} />
       </div>
     </div>
   );
