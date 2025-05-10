@@ -1,40 +1,28 @@
 // lib/mongodb.ts
-import mongoose from "mongoose";
+import { MongoClient } from 'mongodb';
 
-const MONGODB_URI = process.env.NEXT_PUBLIC_MONGODB_URI as string;
+const uri = process.env.MONGODB_URI as string;
+const options = {};
 
-if (!MONGODB_URI) {
-  throw new Error("MONGODB_URI bulunamadı!");
+let client;
+let clientPromise: Promise<MongoClient>;
+
+if (!process.env.MONGODB_URI) {
+  throw new Error('Please add your Mongo URI to .env');
 }
 
-let cached = (global as any).mongoose || { conn: null, promise: null };
-
-async function dbConnect() {
-  if (cached.conn) return cached.conn;
-
-  if (!cached.promise) {
-    const opts = {
-      bufferCommands: false,
-    };
-
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-      console.log("MongoDB bağlantısı başarılı!");
-      return mongoose;
-    }).catch((error) => {
-      console.error("MongoDB bağlantı hatası:", error);
-      throw error;
-    });
+if (process.env.NODE_ENV === 'development') {
+  // @ts-ignore
+  if (!global._mongoClientPromise) {
+    client = new MongoClient(uri, options);
+    // @ts-ignore
+    global._mongoClientPromise = client.connect();
   }
-
-  try {
-    cached.conn = await cached.promise;
-  } catch (e) {
-    cached.promise = null;
-    throw e;
-  }
-
-  (global as any).mongoose = cached;
-  return cached.conn;
+  // @ts-ignore
+  clientPromise = global._mongoClientPromise;
+} else {
+  client = new MongoClient(uri, options);
+  clientPromise = client.connect();
 }
 
-export default dbConnect;
+export default clientPromise;
