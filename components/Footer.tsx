@@ -1,5 +1,5 @@
 import React from "react";
-import { FOOTER_ITEMS, SocialMediaData } from "@/constants";
+import { FOOTER_ITEMS, SocialMediaData } from "../constants";
 
 const Footer = () => {
   return (

@@ -34,12 +34,13 @@ export default function MapPage() {
   useEffect(() => {
     const fetchReports = async () => {
       try {
-        const res = await fetch("/api/report/recent");
+        const res = await fetch("/api/report");
         const data = await res.json();
         console.log("📡 Raw API Response:", data);
-        console.log("📡 Reports Data:", data.reports);
-        console.log("📡 First Report Location:", data.reports[0]?.latitude, data.reports[0]?.longitude);
-        setRecentReports(data.reports || []);
+        setRecentReports((data || []).map(r => ({
+          ...r,
+          dateTime: r.timestamp
+        })));
       } catch (err) {
         console.error("❌ Failed to fetch reports:", err);
       }
@@ -80,7 +81,7 @@ export default function MapPage() {
 
       {/* MAP 2 - User Reports */}
       <section className="w-full max-w-4xl bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-4">
-        <h2 className="text-xl font-semibold mb-3 text-black">🔥 User Reports (Last 5 Hours)</h2>
+        <h2 className="text-xl font-semibold mb-3 text-black">�� User Reports</h2>
         <div className="rounded-xl overflow-hidden">
           <MapContainer
             center={[39.0, 35.0]} // Türkiye merkezi

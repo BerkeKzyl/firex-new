@@ -1,5 +1,6 @@
 // lib/mongodb.ts
 import { MongoClient } from 'mongodb';
+import mongoose from 'mongoose';
 
 const uri = process.env.MONGODB_URI as string;
 const options = {};
@@ -26,3 +27,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 export default clientPromise;
+
+export async function getMongooseConnection() {
+  if (mongoose.connection.readyState === 1) return mongoose;
+  await mongoose.connect(uri);
+  return mongoose;
+}
