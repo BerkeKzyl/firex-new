@@ -25,23 +25,23 @@ export default function AdminPanel() {
     async function fetchSummary() {
       const [devicesRes, webReportsRes, mobileReportsRes] = await Promise.all([
         fetch('/api/devices'),
-        fetch('/api/report'),
-        fetch('/api/mobile/report'),
+        fetch('/api/report?all=true'),
+        fetch('/api/mobile/report?all=true'),
       ]);
       const devices = await devicesRes.json();
       let webReports = await webReportsRes.json();
       let mobileReports = await mobileReportsRes.json();
-      // Eğer hata dönerse veya dizi değilse boş dizi ata
       if (!Array.isArray(webReports)) webReports = [];
       if (!Array.isArray(mobileReports)) mobileReports = [];
-      // status alanı olmayanlara default değer ata
-      webReports = webReports.map(r => ({ ...r, status: r.status || 'Unknown' }));
-      mobileReports = mobileReports.map(r => ({ ...r, status: r.status || 'Unknown' }));
+      webReports = webReports.map(r => ({ ...r, status: r.status || 'Active' }));
+      mobileReports = mobileReports.map(r => ({ ...r, status: r.status || 'Active' }));
       const allReports = [...webReports, ...mobileReports];
+      // Unique device_id sayısı (boşlar 1 olarak sayılır)
+      const uniqueDeviceIds = new Set(devices.map(d => d.device_id || '1'));
       setSummary({
-        devices: Array.isArray(devices) ? devices.length : 0,
-        activeReports: allReports.filter(r => r.status !== 'Resolved').length,
-        resolvedReports: allReports.filter(r => r.status === 'Resolved').length,
+        devices: uniqueDeviceIds.size,
+        activeReports: allReports.filter(r => r.status === 'Active').length,
+        resolvedReports: allReports.filter(r => r.status === 'Inactive').length,
       });
     }
     fetchSummary();
@@ -49,7 +49,7 @@ export default function AdminPanel() {
 
   const handleLogout = () => {
     localStorage.removeItem('adminSession');
-    router.replace('/welcome');
+    router.replace('/login');
   };
 
   return (
@@ -128,7 +128,54 @@ export default function AdminPanel() {
         {/* Content Area */}
         <div className="p-6 bg-white/80 rounded-2xl shadow-lg">
           {activeTab === 'devices' && <DeviceList />}
-          {activeTab === 'reports' && <ReportList />}
+          {activeTab === 'reports' && (
+            <div>
+              <h2 className="text-xl font-semibold mb-4">Reports</h2>
+              <div className="flex space-x-4 mb-4">
+                <button
+                  className="px-4 py-2 rounded bg-red-500 text-white"
+                  onClick={() => setActiveTab('reports-web')}
+                >
+                  Web Reports
+                </button>
+                <button
+                  className="px-4 py-2 rounded bg-red-500 text-white"
+                  onClick={() => setActiveTab('reports-mobile')}
+                >
+                  Mobile Reports
+                </button>
+              </div>
+              <ReportList type="web" />
+            </div>
+          )}
+          {activeTab === 'reports-web' && (
+            <div>
+              <h2 className="text-xl font-semibold mb-4">Web Reports</h2>
+              <div className="flex space-x-4 mb-4">
+                <button
+                  className="px-4 py-2 rounded bg-red-500 text-white"
+                  onClick={() => setActiveTab('reports')}
+                >
+                  Back to All Reports
+                </button>
+              </div>
+              <ReportList type="web" />
+            </div>
+          )}
+          {activeTab === 'reports-mobile' && (
+            <div>
+              <h2 className="text-xl font-semibold mb-4">Mobile Reports</h2>
+              <div className="flex space-x-4 mb-4">
+                <button
+                  className="px-4 py-2 rounded bg-red-500 text-white"
+                  onClick={() => setActiveTab('reports')}
+                >
+                  Back to All Reports
+                </button>
+              </div>
+              <ReportList type="mobile" />
+            </div>
+          )}
           {activeTab === 'users' && <UserList />}
           {activeTab === 'settings' && (
             <div>

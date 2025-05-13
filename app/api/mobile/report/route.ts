@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import clientPromise from '@/lib/mongodb';
 import jwt from 'jsonwebtoken';
+import { ObjectId } from 'mongodb';
 
 function getUserIdFromRequest(request: Request): string | null {
   const auth = request.headers.get('authorization');
@@ -30,6 +31,7 @@ export async function POST(req: Request) {
     comment: body.comment,
     deviceInfo: body.deviceInfo,
     userId: userId,
+    status: body.status || 'Active',
   };
   console.log('MOBILE REPORT INSERTED:', newReport);
   const result = await reports.insertOne(newReport);
@@ -46,13 +48,40 @@ export async function POST(req: Request) {
   });
 }
 
-export async function GET() {
+export async function GET(request) {
   try {
+    const url = request?.url ? new URL(request.url) : null;
+    const all = url?.searchParams.get('all') === 'true';
     const client = await clientPromise;
     const db = client.db('firex');
-    const reports = await db.collection('mobile_reports').find({ hidden: { $ne: true } }).sort({ timestamp: -1 }).toArray();
+    const query = all ? { hidden: { $ne: true } } : { hidden: { $ne: true }, status: 'Active' };
+    const reports = await db.collection('mobile_reports').find(query).sort({ timestamp: -1 }).toArray();
     return NextResponse.json(reports);
   } catch (error) {
     return NextResponse.json({ error: 'Veri çekilemedi', details: error }, { status: 500 });
+  }
+}
+
+export async function PATCH(request) {
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get('id');
+  if (!id) return NextResponse.json({ error: 'ID gerekli' }, { status: 400 });
+  const body = await request.json();
+  try {
+    const client = await clientPromise;
+    const db = client.db('firex');
+    const updateFields: any = {};
+    if (body.status) updateFields.status = body.status;
+    if (typeof body.showOnMap === 'boolean') updateFields.showOnMap = body.showOnMap;
+    const result = await db.collection('mobile_reports').updateOne(
+      { _id: new ObjectId(id) },
+      { $set: updateFields }
+    );
+    if (result.matchedCount === 0) {
+      return NextResponse.json({ error: 'Rapor bulunamadı.' }, { status: 404 });
+    }
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    return NextResponse.json({ error: 'Güncelleme başarısız', details: error }, { status: 500 });
   }
 } 

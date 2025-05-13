@@ -17,14 +17,18 @@ export async function DELETE(request, { params }) {
   }
 }
 
-export async function PATCH(request, { params }) {
+export async function PATCH(request, context) {
+  const params = await context.params;
   const { id } = params;
   const body = await request.json();
   try {
     const client = await clientPromise;
     const db = client.db('firex');
     const updateFields: any = {};
-    if (body.status) updateFields.status = body.status;
+    if (body.status) {
+      const statusVal = ['Inactive', 'Çözüldü', 'Pasif', 'Resolved'].includes(body.status) ? 'Inactive' : 'Active';
+      updateFields.status = statusVal;
+    }
     if (typeof body.hidden === 'boolean') updateFields.hidden = body.hidden;
     if (typeof body.showOnMap === 'boolean') updateFields.showOnMap = body.showOnMap;
     const result = await db.collection('reports').updateOne(
