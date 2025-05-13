@@ -95,7 +95,7 @@ export default function MapClient() {
     <>
       {/* MAP 1 - Device Locations */}
       <section className="w-full max-w-4xl bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-4">
-        <h2 className="text-xl font-semibold mb-3 text-black">🛰️ Device Locations</h2>
+        <h2 className="text-xl font-semibold mb-3 text-black">Device Locations</h2>
         <div className="rounded-xl overflow-hidden">
           <GoogleMap
             mapContainerStyle={mapContainerStyle}
@@ -168,7 +168,7 @@ export default function MapClient() {
 
       {/* MAP 2 - User Reports */}
       <section className="w-full max-w-4xl bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-4">
-        <h2 className="text-xl font-semibold mb-3 text-black">🔥 User Reports</h2>
+        <h2 className="text-xl font-semibold mb-3 text-black">User Reports</h2>
         <div className="rounded-xl overflow-hidden">
           <GoogleMap
             mapContainerStyle={mapContainerStyle}

@@ -113,16 +113,6 @@ export default function AdminPanel() {
             >
               Users
             </button>
-            <button
-              onClick={() => setActiveTab('settings')}
-              className={`px-6 py-3 text-sm font-medium whitespace-nowrap rounded-t-lg ${
-                activeTab === 'settings'
-                  ? 'border-b-2 border-red-500 text-red-500 bg-white'
-                  : 'text-gray-500 hover:text-gray-700 bg-transparent'
-              }`}
-            >
-              Settings
-            </button>
           </nav>
         </div>
         {/* Content Area */}
@@ -177,43 +167,6 @@ export default function AdminPanel() {
             </div>
           )}
           {activeTab === 'users' && <UserList />}
-          {activeTab === 'settings' && (
-            <div>
-              <h2 className="text-xl font-semibold mb-4">Settings</h2>
-              <div className="bg-white/70 p-6 rounded-lg shadow mb-4">
-                <p className="text-gray-500">This section allows you to manage the site name and email notification settings. <b>Currently, this is for display only and not connected to the backend.</b></p>
-              </div>
-              <div className="bg-white/70 p-6 rounded-lg shadow">
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Site Name</label>
-                    <input
-                      type="text"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500"
-                      defaultValue="FireX"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Email Notifications</label>
-                    <div className="mt-2">
-                      <label className="inline-flex items-center">
-                        <input
-                          type="checkbox"
-                          className="rounded border-gray-300 text-red-500 focus:ring-red-500"
-                        />
-                        <span className="ml-2">Enable email notifications</span>
-                      </label>
-                    </div>
-                  </div>
-                  <div>
-                    <button className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600">
-                      Save Changes
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </div>

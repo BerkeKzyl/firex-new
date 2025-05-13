@@ -32,6 +32,7 @@ export async function POST(req: Request) {
     deviceInfo: body.deviceInfo,
     userId: userId,
     status: body.status || 'Active',
+    showOnMap: typeof body.showOnMap === 'boolean' ? body.showOnMap : true,
   };
   console.log('MOBILE REPORT INSERTED:', newReport);
   const result = await reports.insertOne(newReport);

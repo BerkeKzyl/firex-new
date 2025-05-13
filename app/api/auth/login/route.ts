@@ -14,7 +14,7 @@ export async function POST(request: Request) {
   const db = client.db();
   const users = db.collection('users');
 
-  const user = await users.findOne({ email, password }); // Güvenlik için hash karşılaştırması önerilir
+  const user = await users.findOne({ email, password }); 
   if (!user) {
     return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
   }

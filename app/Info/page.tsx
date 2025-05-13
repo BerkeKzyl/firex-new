@@ -73,7 +73,7 @@ export default function InfoPage() {
   return (
     <main className="min-h-screen px-6 py-12 bg-gradient-to-br from-orange-50 to-orange-100 text-gray-900">
       <h1 className="text-4xl font-bold text-center text-orange-600 mb-12 drop-shadow-sm">
-        🔎 Information
+        Information
       </h1>
 
       <div className="flex flex-wrap gap-8 justify-center items-start max-w-7xl mx-auto">

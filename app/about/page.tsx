@@ -1,200 +1,75 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
 
 export const runtime = "edge";
 
 function AboutPage() {
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '40px',
-      padding: '20px',
-    }}>
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        borderRadius: '10px',
-        padding: '40px',
-        backgroundColor: '#1a1a1a',
-        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-      }}>
-        <Image src="/images/whoami.png" alt="Mission" width={300} height={200} style={{
-          borderRadius: '10px',
-          width: '100%',
-          maxWidth: '250px',
-          height: 'auto',
-        }} />
-        <div style={{
-          flex: 1,
-          padding: '0 20px',
-        }}>
-          <h2 style={{
-            fontSize: '32px',
-            marginBottom: '20px',
-            fontFamily: 'Crete Round, serif',
-            color: 'white',
-          }}>WHO AM I?</h2>
-          <p style={{
-            fontSize: '18px',
-            lineHeight: 1.6,
-            color: '#d1d1d1',
-          }}>
-            We are a dedicated team of fire safety professionals committed to protecting lives and property through innovative solutions and cutting-edge technology. Our journey began with a simple mission: to make fire safety accessible and effective for everyone.
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-orange-100 py-12 px-4">
+      <div className="max-w-4xl mx-auto">
+        {/* Header Section */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-orange-600 mb-4" style={{ fontFamily: "var(--font-wallpoet)" }}>
+            About FireX
+          </h1>
+          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+            We are a team of passionate engineers dedicated to creating innovative solutions for fire detection and prevention.
           </p>
         </div>
-      </div>
 
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        borderRadius: '10px',
-        padding: '40px',
-        backgroundColor: '#1a1a1a',
-        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-      }}>
-        <div style={{
-          flex: 1,
-          padding: '0 20px',
-        }}>
-          <h2 style={{
-            fontSize: '32px',
-            marginBottom: '20px',
-            fontFamily: 'Crete Round, serif',
-            color: 'white',
-          }}>Experience</h2>
-          <p style={{
-            fontSize: '18px',
-            lineHeight: 1.6,
-            color: '#d1d1d1',
-          }}>
-            With years of experience in fire safety and emergency management, we have developed comprehensive solutions that have been implemented across numerous facilities. Our team combines technical expertise with practical knowledge to deliver the most effective fire safety systems.
-          </p>
-        </div>
-        <Image src="/images/EXPERIENCE.png" alt="Experience" width={280} height={330} style={{
-          borderRadius: '10px',
-          width: '100%',
-          maxWidth: '250px',
-          height: 'auto',
-        }} />
-      </div>
+        {/* Team Section */}
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-8">
+          <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Our Team</h2>
+          
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Team Member 1 */}
+            <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
+              <div className="space-y-4">
+                <h3 className="text-2xl font-bold text-orange-700">Taha Kabakcı</h3>
+                <div className="space-y-2">
+                  <p className="text-lg font-semibold text-gray-700">Computer Engineering Student</p>
+                  <p className="text-orange-600 font-medium">Istanbul Okan University</p>
+                </div>
+                <p className="text-gray-600 leading-relaxed">
+                  Full-stack developer with expertise in web and mobile development. Passionate about creating efficient and user-friendly applications that make a difference.
+                </p>
+                <div className="pt-4 flex gap-3">
+                  <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm font-medium">Web Development</span>
+                  <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm font-medium">Mobile Apps</span>
+                  <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm font-medium">UI/UX</span>
+                </div>
+              </div>
+            </div>
 
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        borderRadius: '10px',
-        padding: '40px',
-        backgroundColor: '#1a1a1a',
-        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-      }}>
-        <Image src="/images/EDCC.png" alt="Education" width={280} height={330} style={{
-          borderRadius: '10px',
-          width: '100%',
-          maxWidth: '250px',
-          height: 'auto',
-        }} />
-        <div style={{
-          flex: 1,
-          padding: '0 20px',
-        }}>
-          <h2 style={{
-            fontSize: '32px',
-            marginBottom: '20px',
-            fontFamily: 'Crete Round, serif',
-            color: 'white',
-          }}>Education</h2>
-          <p style={{
-            fontSize: '18px',
-            lineHeight: 1.6,
-            color: '#d1d1d1',
-          }}>
-            Our team consists of certified professionals with backgrounds in fire safety engineering, emergency management, and technology development. We continuously invest in training and education to stay at the forefront of fire safety innovation.
-          </p>
-        </div>
-      </div>
+            {/* Team Member 2 */}
+            <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
+              <div className="space-y-4">
+                <h3 className="text-2xl font-bold text-orange-700">M. Berke Kuzeyli</h3>
+                <div className="space-y-2">
+                  <p className="text-lg font-semibold text-gray-700">Computer Engineering Student</p>
+                  <p className="text-orange-600 font-medium">Istanbul Okan University</p>
+                </div>
+                <p className="text-gray-600 leading-relaxed">
+                  Backend developer specializing in fire detection systems. Focused on creating robust and scalable solutions for real-time monitoring and data analysis.
+                </p>
+                <div className="pt-4 flex gap-3">
+                  <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm font-medium">Backend</span>
+                  <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm font-medium">Fire Detection</span>
+                  <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm font-medium">Data Analysis</span>
+                </div>
+              </div>
+            </div>
+          </div>
 
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        borderRadius: '10px',
-        padding: '40px',
-        backgroundColor: '#1a1a1a',
-        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-      }}>
-        <div style={{
-          flex: 1,
-          padding: '0 20px',
-        }}>
-          <h2 style={{
-            fontSize: '32px',
-            marginBottom: '20px',
-            fontFamily: 'Crete Round, serif',
-            color: 'white',
-          }}>Certifications</h2>
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '10px',
-          }}>
-            <p>
-              <Link href="#" style={{
-                fontSize: '18px',
-                color: '#d1d1d1',
-                textDecoration: 'none',
-                transition: 'color 0.3s ease',
-              }} onMouseOver={(e) => e.currentTarget.style.color = '#ee9105'} 
-                 onMouseOut={(e) => e.currentTarget.style.color = '#d1d1d1'}>
-                NFPA Certified Fire Safety Professional
-              </Link>
-            </p>
-            <p>
-              <Link href="#" style={{
-                fontSize: '18px',
-                color: '#d1d1d1',
-                textDecoration: 'none',
-                transition: 'color 0.3s ease',
-              }} onMouseOver={(e) => e.currentTarget.style.color = '#ee9105'} 
-                 onMouseOut={(e) => e.currentTarget.style.color = '#d1d1d1'}>
-                ISO 9001:2015 Quality Management
-              </Link>
-            </p>
-            <p>
-              <Link href="#" style={{
-                fontSize: '18px',
-                color: '#d1d1d1',
-                textDecoration: 'none',
-                transition: 'color 0.3s ease',
-              }} onMouseOver={(e) => e.currentTarget.style.color = '#ee9105'} 
-                 onMouseOut={(e) => e.currentTarget.style.color = '#d1d1d1'}>
-                Emergency Response Team Certification
-              </Link>
-            </p>
-            <p>
-              <Link href="#" style={{
-                fontSize: '18px',
-                color: '#d1d1d1',
-                textDecoration: 'none',
-                transition: 'color 0.3s ease',
-              }} onMouseOver={(e) => e.currentTarget.style.color = '#ee9105'} 
-                 onMouseOut={(e) => e.currentTarget.style.color = '#d1d1d1'}>
-                Fire Safety Technology Specialist
-              </Link>
+          {/* Mission Statement */}
+          <div className="mt-12 text-center">
+            <h3 className="text-2xl font-bold text-gray-800 mb-4">Our Mission</h3>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              At FireX, we are committed to leveraging technology to create safer environments through innovative fire detection and prevention solutions. Our goal is to make fire safety more accessible and effective for everyone.
             </p>
           </div>
         </div>
-        <Image src="/images/certificatess.png" alt="Certificates" width={280} height={330} style={{
-          borderRadius: '10px',
-          width: '100%',
-          maxWidth: '250px',
-          height: 'auto',
-        }} />
       </div>
     </div>
   );
