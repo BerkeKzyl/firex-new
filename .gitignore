@@ -40,3 +40,6 @@ coverage/
 # ❌ Türkçe karakterli klasör/dosya isimleri varsa önlem olarak (isteğe bağlı)
 Thumbs.db
 ehthumbs.db
+
+# ❌ Dataset ve resim klasörleri
+FireXIOS/LeafIdentifier/Dataset/
